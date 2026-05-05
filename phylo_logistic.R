@@ -76,3 +76,20 @@ col_hab.D <- phylo.d(habitat_naomit, bird_tree_hab, names.col = species_tree, bi
 
 # Set Zero-Length Branches to Be 1/1000000 Total Tree Length
 # North Latitude
+no_zero_tree_lat_N <- bird_tree_lat_N
+no_zero_tree_lat_N$edge.length[no_zero_tree_lat_N$edge.length == 0] <- max(nodeHeights(bird_tree_lat_N))*1e-6
+no_zero_tree_lat_N$edge.length
+
+col_lat_N.D <- phylo.d(lat_y_N, no_zero_tree_lat_N, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
+print(col_lat_N.D)
+plot(col_lat_N.D)
+
+# South Latitude
+no_zero_tree_lat_S <- bird_tree_lat_S
+no_zero_tree_lat_S$edge.length[no_zero_tree_lat_S$edge.length == 0] <- max(nodeHeights(bird_tree_lat_S))*1e-6
+no_zero_tree_lat_S$edge.length
+
+col_lat_S.D <- phylo.d(lat_y_S, no_zero_tree_lat_S, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
+print(col_lat_S.D)
+plot(col_lat_S.D)
+
