@@ -1,3 +1,7 @@
+# Reset Commands
+closeAllConnections()
+rm(list = ls())
+
 # Programs
 require(ape); require(geiger); require(ggplot2); require(phytools); require(TreeTools)
 
