@@ -3,7 +3,8 @@ closeAllConnections()
 rm(list = ls())
 
 # Programs
-require(ape); require(geiger); require(ggplot2); require(phangorn); require(phytools); require(plotrix)
+require(ape); require(geiger); require(ggplot2)
+require(phangorn); require(phytools); require(plotrix)
 
 ##### DATA PREPARATION #####
 setwd("~/Desktop/R/Data")
@@ -70,9 +71,12 @@ hab_trait <- as.factor(setNames(habitat_naomit$habitat, habitat_naomit$species_t
 # Phylogenetic Signal for Binary Variable Purvis' D
 require(caper); require(phylolm)
 
-col_lat_N.D <- phylo.d(lat_y_N, bird_tree_lat_N, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
-col_lat_S.D <- phylo.d(lat_y_S, bird_tree_lat_S, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
-col_hab.D <- phylo.d(habitat_naomit, bird_tree_hab, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
+col_lat_N.D <- phylo.d(lat_y_N, bird_tree_lat_N, names.col = species_tree, binvar = nisc, 
+                       permut = 1000, rnd.bias = NULL)
+col_lat_S.D <- phylo.d(lat_y_S, bird_tree_lat_S, names.col = species_tree, binvar = nisc, 
+                       permut = 1000, rnd.bias = NULL)
+col_hab.D <- phylo.d(habitat_naomit, bird_tree_hab, names.col = species_tree, binvar = nisc, 
+                     permut = 1000, rnd.bias = NULL)
 
 # Set Zero-Length Branches to Be 1/1000000 Total Tree Length
 # North Latitude
@@ -80,7 +84,8 @@ no_zero_tree_lat_N <- bird_tree_lat_N
 no_zero_tree_lat_N$edge.length[no_zero_tree_lat_N$edge.length == 0] <- max(nodeHeights(bird_tree_lat_N))*1e-6
 no_zero_tree_lat_N$edge.length
 
-col_lat_N.D <- phylo.d(lat_y_N, no_zero_tree_lat_N, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
+col_lat_N.D <- phylo.d(lat_y_N, no_zero_tree_lat_N, names.col = species_tree, binvar = nisc, 
+                       permut = 1000, rnd.bias = NULL)
 print(col_lat_N.D)
 plot(col_lat_N.D)
 
@@ -89,7 +94,8 @@ no_zero_tree_lat_S <- bird_tree_lat_S
 no_zero_tree_lat_S$edge.length[no_zero_tree_lat_S$edge.length == 0] <- max(nodeHeights(bird_tree_lat_S))*1e-6
 no_zero_tree_lat_S$edge.length
 
-col_lat_S.D <- phylo.d(lat_y_S, no_zero_tree_lat_S, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
+col_lat_S.D <- phylo.d(lat_y_S, no_zero_tree_lat_S, names.col = species_tree, binvar = nisc, 
+                       permut = 1000, rnd.bias = NULL)
 print(col_lat_S.D)
 plot(col_lat_S.D)
 
@@ -98,40 +104,47 @@ no_zero_tree_hab <- bird_tree_hab
 no_zero_tree_hab$edge.length[no_zero_tree_hab$edge.length == 0] <- max(nodeHeights(bird_tree_hab))*1e-6
 no_zero_length_tree_hab$edge.length
 
-col_hab.D <- phylo.d(habitat_naomit, no_zero_tree_hab, names.col = species_tree, binvar = nisc, permut = 1000, rnd.bias = NULL)
+col_hab.D <- phylo.d(habitat_naomit, no_zero_tree_hab, names.col = species_tree, binvar = nisc, 
+                     permut = 1000, rnd.bias = NULL)
 print(col_hab.D)
 plot(col_hab.D)
 
 ##### Creating the Plots #####
 # Phylogenetic Logistic Regression Model North Latitude
-model_lat_N = phyloglm(nisc ~ lat_N_trait, phy = no_zero_tree_lat_N, data = lat_y_N, method = c("logistic_MPLE"), log.alpha.bound = 5, btol = 30)
+model_lat_N = phyloglm(nisc ~ lat_N_trait, phy = no_zero_tree_lat_N, data = lat_y_N, 
+                       method = c("logistic_MPLE"), log.alpha.bound = 5, btol = 30)
 summary(model_lat_N)
 plot(model_lat_N)
 
-plot(jitter(lat_y_N$lat_y), lat_y_N$nisc, pch = 1, col = 'gray80', xlab = "North Latitude", ylab = "Probability of NISC")
+plot(jitter(lat_y_N$lat_y), lat_y_N$nisc, pch = 1, col = 'gray80', 
+     xlab = "North Latitude", ylab = "Probability of NISC")
 
 x <- lat_y_N$lat_y
 cc1 <- coef(model_lat_N)
 curve(plogis(cc1[1]+cc1[2]*x), col = 'indianred2', lwd = 3, add = T)
 
 # Phylogenetic Logistic Regression Model South Latitude
-model_lat_S = phyloglm(nisc ~ lat_S_trait, phy = no_zero_tree_lat_S, data = lat_y_S, method = c("logistic_MPLE"), log.alpha.bound = 5, btol = 30)
+model_lat_S = phyloglm(nisc ~ lat_S_trait, phy = no_zero_tree_lat_S, data = lat_y_S, 
+                       method = c("logistic_MPLE"), log.alpha.bound = 5, btol = 30)
 summary(model_lat_S)
 plot(model_lat_S)
 
-plot(jitter(lat_y_S$lat_y), lat_y_S$nisc, pch = 1, col = 'gray80', xlab = "South Latitude", ylab = "Probability of NISC")
+plot(jitter(lat_y_S$lat_y), lat_y_S$nisc, pch = 1, col = 'gray80', 
+     xlab = "South Latitude", ylab = "Probability of NISC")
 
-y = lat_y_S$lat_y
+x = lat_y_S$lat_y
 cc2 <- coef(model_lat_S)
-curve(plogis(cc2[1] + cc2[2]*y), col = 'indianred2', lwd = 3, add = T)
+curve(plogis(cc2[1] + cc2[2]*x), col = 'indianred2', lwd = 3, add = T)
 
 # Phylogenetic Logistic Regression Model Habitat
-model_hab = phyloglm(nisc ~ -1 + hab_trait, phy = no_zero_tree_hab, data = habitat_naomit, method = c("logistic_MPLE"), log.alpha.bound = 5, btol = 30)
+model_hab = phyloglm(nisc ~ -1 + hab_trait, phy = no_zero_tree_hab, data = habitat_naomit, 
+                     method = c("logistic_MPLE"), log.alpha.bound = 5, btol = 30)
 summary(model_hab)
 plot(model_hab)
 
-plot(jitter(habitat_naomit$habitat), habitat_naomit$nisc, pch = 1, col = 'gray80', xlab = "Habitat", ylab = "Probability of NISC")
+plot(jitter(habitat_naomit$habitat), habitat_naomit$nisc, pch = 1, col = 'gray80', 
+     xlab = "Habitat", ylab = "Probability of NISC")
 
-z = habitat_naomit$habitat
+x = habitat_naomit$habitat
 cc3 <- coef(model_hab)
-curve(plogis(cc3[1]+cc3[2]+cc3[3]+cc3[4]+cc3[5]+cc3[6]*z), col = 'indianred2', lwd = 3, add = T)
+curve(plogis(cc3[1]+cc3[2]+cc3[3]+cc3[4]+cc3[5]+cc3[6]*x), col = 'indianred2', lwd = 3, add = T)
