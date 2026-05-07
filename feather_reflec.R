@@ -19,7 +19,8 @@ plots(reflec.mn.sm, col = spec2rgb(reflec.mn.sm))
 
 ##### BIRD VIEW
 # Construct a Model Using a Bird Viewer
-reflec.mn.sm.visbybird <- vismodel(reflec.mn.sm, visual = 'avg.uv', illum = 'D65', vonkries = TRUE, relative = FALSE, achromatic = 'none')
+reflec.mn.sm.visbybird <- vismodel(reflec.mn.sm, visual = 'avg.uv', illum = 'D65', vonkries = TRUE, 
+                                   relative = FALSE, achromatic = 'none')
 
 # Model Reflectance Spectra in a Color Space
 reflec.mn.sm.vis.tsc <- colspace(reflec.mn.sm.visbybird, space = 'tcs')
@@ -29,7 +30,8 @@ plot(reflec.mn.sm.vis.tsc, pch = 21, bg = colorpalette)
 
 ##### HUMAN VIEW #####
 # Construct a Model Using Human Viewer
-reflec.mn.sm.visbyhuman <- vismodel(reflec.mn.sm, visual = 'cie10', illum = 'D65', vonkries = TRUE, relative = FALSE, achromatic = 'none')
+reflec.mn.sm.visbyhuman <- vismodel(reflec.mn.sm, visual = 'cie10', illum = 'D65', vonkries = TRUE, 
+                                    relative = FALSE, achromatic = 'none')
 
 # Model Reflectance Spectra in a Color Space
 reflec.mn.sm.vis.ciexyz <- colspace(reflec.mn.sm.visbyhuman, space = 'ciexyz')
