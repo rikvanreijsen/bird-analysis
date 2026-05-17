@@ -3,15 +3,15 @@ closeAllConnections()
 rm(list = ls())
 
 # Programs
-require(ape); require(geiger); require(ggplot2); require(phytools); require(TreeTools)
+library(ape); library(geiger); library(ggplot2); library(phytools); library(TreeTools)
 
-##### OVERALL DATA #####
+##### Overall Data #####
 # Data Preparation
 setwd("~/Desktop/R/Data")
 bird_tree <- read.tree("Stage2_Hackett_MCC_no_neg.tree")
-is.utrametric(bird_tree)
+is.ultrametric(bird_tree)
 bird_tree
-data_overall <- reac.csv2("~/Dekstop/R/Data/DataRAnalysis.csv")
+data_overall <- read.csv2("~/Desktop/R/Data/DataRAnalysis.csv")
 data_overall <- data.frame(as.list(data_overall))
 
 # Prune Data & Tree
@@ -26,7 +26,7 @@ pruned_data_overall <- treedata(bird_tree, data_overall, sort = T)$data
 pruned_data_overall <- data.frame(pruned_data_overall)
 name.check(pruned_tree_overall, pruned_data_overall)
 
-##### OVERAL SC #####
+##### Overall SC #####
 pruned_data_overall$sc <- as.factor(pruned_data_overall$sc)
 sc_overall <- setNames(pruned_data_overall$sc, pruned_data_overall$species_tree)
 
@@ -40,13 +40,13 @@ onerate_sc
 tworate_sc
 
 # Plotting Tree
-plot.phylo(pruned_tree_overall, type = "fan", no.margin = T, show.tip.label = F, edge.width = 0.2, 
+plot.phylo(pruned_tree_overall, type = "fan", no.margin = T, show.tip.label = F, edge.width = 0.2,
            cex = 0.5, edge.color = "gray50")
-tiplabels(pch = 20, col = c("gray95", "lighcoral")[as.factor(pruned_data_overall$sc)], lwd = 5)
-nodelabels(pie = tworate_sc$lik.anc, piecol = setNames(c("whitesmoke", "lightcoral"), c(0,1)), 
+tiplabels(pch = 20, col = c("gray95", "lightcoral")[as.factor(pruned_data_overall$sc)], lwd = 5)
+nodelabels(pie = tworate_sc$lik.anc, piecol = setNames(c("whitesmoke", "lightcoral"), c(0, 1)), 
            cex = 0.2)
 
-##### OVERALL NISC #####
+##### Overall NISC #####
 pruned_data_overall$nisc <- as.factor(pruned_data_overall$nisc)
 nisc_overall <- setNames(pruned_data_overall$nisc, pruned_data_overall$species_tree)
 
@@ -62,11 +62,11 @@ tworate_nisc
 # Plotting Tree
 plot.phylo(pruned_tree_overall, type = "fan", no.margin = T, show.tip.label = F, edge.width = 0.2, 
            cex = 0.5, edge.color = "gray50")
-tiplabels(pch = 20, col = c("gray95", "lighcoral")[as.factor(pruned_data_overall$nisc)], lwd = 5)
-nodelabels(pie = tworate_nisc$lik.anc, piecol = setNames(c("whitesmoke", "lightcoral"), c(0,1)), 
+tiplabels(pch = 20, col = c("gray95", "lightcoral")[as.factor(pruned_data_overall$nisc)], lwd = 5)
+nodelabels(pie = tworate_nisc$lik.anc, piecol = setNames(c("whitesmoke", "lightcoral"), c(0, 1)), 
            cex = 0.2)
 
-##### BLUE NISC #####
+##### Blue NISC #####
 pruned_data_overall$b_nisc <- as.factor(pruned_data_overall$b_nisc)
 b_nisc_overall <- setNames(pruned_data_overall$b_nisc, pruned_data_overall$species_tree)
 
@@ -84,7 +84,7 @@ plot.phylo(pruned_tree_overall, type = "fan", no.margin = T, show.tip.label = F,
            cex = 0.5, edge.color = "gray50")
 tiplabels(pch = 20, col = c("gray95", "royalblue")[as.factor(pruned_data_overall$b_nisc)], lwd = 5)
 
-##### GREEN NISC #####
+##### Green NISC #####
 pruned_data_overall$g_nisc <- as.factor(pruned_data_overall$g_nisc)
 g_nisc_overall <- setNames(pruned_data_overall$g_nisc, pruned_data_overall$species_tree)
 
@@ -102,7 +102,7 @@ plot.phylo(pruned_tree_overall, type = "fan", no.margin = T, show.tip.label = F,
            cex = 0.5, edge.color = "gray50")
 tiplabels(pch = 20, col = c("gray95", "mediumseagreen")[as.factor(pruned_data_overall$g_nisc)], lwd = 5)
 
-##### PURPLE NISC #####
+##### Purple NISC #####
 pruned_data_overall$p_nisc <- as.factor(pruned_data_overall$p_nisc)
 p_nisc_overall <- setNames(pruned_data_overall$p_nisc, pruned_data_overall$species_tree)
 
