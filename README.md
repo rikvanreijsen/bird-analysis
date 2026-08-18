@@ -17,6 +17,15 @@ This repository contains the dataset matrices, phylogenetic trees, environmental
 
 ---
 
+## 📊 Data Sources & Habitat Coding
+
+* **Phenotypic & Habitat Classifications:** Phenotypic traits and habitat descriptions were compiled from *Birds of the World* (Billerman et al., 2026). Species habitat classifications (coded 1–6) were assigned based on natural history profiles and standardized using the IUCN Red List Habitat Classification Scheme (IUCN, 2024).
+* **Morphological Traits:** Morphological metrics (including Hand-Wing Index and body mass) were retrieved from AVONET (`AVONET1_BirdLife.csv`; Tobias et al., 2022).
+* **Phylogeny:** Consensus phylogenetic topology was sourced from the Hackett backbone tree set (`Stage2_Hackett_MCC_no_neg.tree`; Jetz et al., 2012).
+* **Macroecological Rasters:** Marine environmental data layers were obtained via Bio-ORACLE v2.0 (`sdmpredictors`; Assis et al., 2018) and WorldClim v2.1 (Fick & Hijmans, 2017).
+
+---
+
 ## 📁 Repository Structure
 
 ```R
