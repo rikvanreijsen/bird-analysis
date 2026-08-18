@@ -21,15 +21,16 @@ This repository contains the dataset matrices, phylogenetic trees, environmental
 
 .
 ├── data/
-│   ├── processed/          # Cleaned species-level phenotype and trait matrices
-│   └── spatial/            # Species distribution overlays (WorldClim v2.1 & Bio-ORACLE v2.0)
+│   ├── processed/             # DataRAnalysis.csv & AVONET1_BirdLife.csv
+│   └── spatial/               # Bio-ORACLE marine layers (downloaded via sdmpredictors)
 ├── phylo/
-│   └── trees/              # Consensus phylogenetic tree files (.tre / .nexus)
+│   └── trees/                 # Stage2_Hackett_MCC_no_neg.tree
 ├── R/
-│   ├── 01_macroevolution.R # Continuous-time Markov models (ARD vs. ER) & transition rates
-│   ├── 02_diet_pcap.R      # Phylogenetic logistic regressions (phylolm) for dietary niches
-│   ├── 03_biomechanics.R   # HWI, body mass, and morphological PCAs
-│   └── 04_oceanography.R   # Marine sub-models, SST, and surface radiation benchmarking
+│   ├── 01_metadata_setup.R    # Metadata configuration & environment initialization
+│   ├── 02_phylo_tree.R        # Tree matching, Markov transition models & ancestral states
+│   ├── 03_phylo_regression.R  # Continuous trait & dietary phylogenetic logistic regressions (phylolm)
+│   ├── 04_geospatial.R        # Bio-ORACLE spatial extractions, raster overlays & range mapping
+│   └── 05_multidimensional.R  # Ecomorphological PCAs, HWI biomechanics & pelagic oceanographic sub-models
 └── README.md
 
 ---
