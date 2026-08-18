@@ -1,93 +1,77 @@
-# Macroevolutionary & Computational Analysis of Avian Structural Phenotypes
+# Macroevolutionary Ratcheting and Oceanographic Boundaries Shape Avian Structural Colouration: Flight Biomechanics and Marine Optical Fouling in Non-Passerines
 
-An automated spatial data-augmentation, phylogenetic comparative, and biophysical analysis pipeline evaluating 
-the macroevolutionary dynamics of Non-Iridescent Structural Colouration (NISC) in global non-passerine lineages ($N = 4,335$).
-
-## 📌 Project Overview
-This repository contains the full analytical codebase and computational pipelines developed for my undergraduate thesis at the 
-University of British Columbia (UBC). The research isolates proximate biophysical mechanics and ultimate macroevolutionary patterns 
-governing angle-independent avian structural hues (blues, purples, and structural greens).
-
-[ Lineage & Trait Data ]        [ Evolutionary Tree ]
-(DataRAnalysis.csv)       (Stage2_Hackett_MCC_no_neg.tree)
-│                                │
-├────────────────────────────────┤
-▼                                ▼
-┌───────────────────┐            ┌───────────────────┐
-│   phylo_tree.R    │            │ phylo_logistic.R  │
-│ (Pruning & Tree   │            │ (Phylogenetic     │
-│   Preparation)    │            │     Regression)   │
-└───────────────────┘            └───────────────────┘
-
-[ Spatial/Look-up Data ]        [ Spectral Data ]
-(points_missing.csv)           (reflecdata.csv)
-│                                │
-▼ (Fills gaps in)                ▼
-┌───────────────────┐            ┌───────────────────┐
-│ habitat_analysis.R│            │ feather_reflec.R  │
-│ (Fills unknown    │            │ (Spectrophotometry│
-│   data points)    │            │    Analysis)      │
-└───────────────────┘            └───────────────────┘
+> **Short Title:** BIOPHYSICAL BOUNDARIES OF STRUCTURAL COLOUR  
+> **Repository for:** Class-wide macroevolutionary, biomechanical, and spatial analysis of non-iridescent structural colouration across non-passerine birds ($N = 3,905$).
 
 ---
 
-## 🔬 Core Code Repositories & Execution Logic
+## 📌 Overview
 
-### Track A: Phylogenetic Comparative Framework
-* **`phylo_tree.R`**: Quality control script that loads a massive consensus Maximum Clade Credibility (MCC) tree built on the Hackett 
-backbone, rectifies branch-length anomalies (negative/zero lengths), drops non-target lineages, and prunes the topology down to the 
-target $4,335$ non-passerine species.
-* **`phylo_logistic.R`**: Executes high-dimensional Phylogenetic Logistic Regressions (using a binary logit link framework). By 
-correcting error structures using the pruned phylogenetic distance matrix, this script isolates true adaptive environmental responses 
-from neutral phylogenetic niche conservatism.
+This repository contains the dataset matrices, phylogenetic trees, environmental rasters, and reproducible **R** code scripts for analyzing the macroevolutionary drivers and physical constraints of non-iridescent structural colouration (NISC) in non-passerine birds.
 
-### Track B: Macroecological Data Augmentation & Spatial Auditing
-* **`habitat_analysis.R`**: Addresses severe geographic data-gap bottlenecks by capturing breeding centroids on coastal margins and 
-remote island networks that fall outside default vector layers. 
-  * Integrates a spatial patch matrix (`points_missing.csv`) using a continental boundary buffering framework (`gBuffer`).
-  * Applies spatial thinning via `spThin` (10 km parameter constraint) to standardize global search effort.
-  * Employs an automated taxonomic frequency filter to dynamically map point densities by family and order.
-
-### Track C: Biophysical Spectral Metrics
-* **`feather_reflec.R`**: Sweeps raw reflectance matrices generated from Scanning Electron Microscopy (SEM) and objective feather 
-spectrophotometry across the full tetrachromatic avian visual spectrum ($300\text{–}700\text{ nm}$). Isolates continuous phenotypic 
-properties (brightness, chroma, peak wavelengths) from background interference noise.
+### Key Conceptual Findings
+* **Macroevolutionary Ratchet:** Trait acquisition ($q_{01}$) systematically outpaces secondary loss ($q_{10}$) across blue (20-fold), green (29-fold), and purple (168-fold) hues ($p < 0.001$), anchored by developmental canalization.
+* **Dietary Decoupling:** Structural blue ($p = 0.34$) and green ($p = 0.44$) plumage evolved independently of carotenoid-rich foraging niches.
+* **Biomechanical Trade-offs:** High Hand-Wing Index ($\beta = -0.028, p < 0.001$) and body mass ($\beta = -0.227, p < 0.001$) suppress NISC due to mechanical wear on porous medullary barbs under aerodynamic load.
+* **Marine Optical Fouling:** Marine habitat represents a primary filter ($\beta = -3.07, p = 0.037$), where dynamic soaring ($\text{HWI } \beta = -3.09, p < 0.01$) and sea surface temperature ($\text{SST } \beta = -2.62, p < 0.05$) drive suppression as evaporative salt micro-crystals foul the keratin-air refractive index interface ($n \approx 1.54$ vs. $n = 1.00$).
 
 ---
 
-## 📊 Summary of Major Empirical Findings
+## 📁 Repository Structure
 
-* **Independent Macroevolutionary Scaling:** NISC evolved independently **27 times** across deep-time non-passerine lineages, 
-manifesting as a highly clustered trait exhibiting powerful phylogenetic signals. Transition rate modelling dictates that lineages 
-display a higher probability of gaining NISC than losing it.
-* **The Marine Environmental Driver:** Phylogenetic comparative regressions revealed **no statistical correlation** between structural 
-plumage traits and terrestrial biomes (forest, grassland, wetland) or latitudinal gradients. However, a **significant, non-coincidental 
-correlation emerged with marine habitats**, identifying marine systems as unique evolutionary selective forces.
-* **Geospatial Hotspots:** Utilizing spatial data-gap clearing corrected significant sample-size artifacts (which initially inflated 
-localized prevalence to an unrealistic $100\%$ across isolated sites). Stabilized spatial outputs definitively position **Oceania 
-($26.61\%$)** and **Asia ($23.11\%$)** as global hotspots, with **South-Eastern Asia ($29.48\%$)**, **Melanesia ($29.17\%$)**, 
-and **Polynesia ($29.03\%$)** acting as evolutionary epicentres.
-* **Ultraviolet Convergence & Discovery:** Spectrophotometric arrays confirmed a powerful positive correlation between colour intensity 
-and ultraviolet (UV) reflectance. Furthermore, microstructural analyses led to the discovery of characteristic NISC configurations within 
-the family **Ardeidae** (herons and egrets)—a structural mechanism previously documented almost exclusively within **Spheniscidae** 
-(penguins).
+.
+├── data/
+│   ├── processed/          # Cleaned species-level phenotype and trait matrices
+│   └── spatial/            # Species distribution overlays (WorldClim v2.1 & Bio-ORACLE v2.0)
+├── phylo/
+│   └── trees/              # Consensus phylogenetic tree files (.tre / .nexus)
+├── R/
+│   ├── 01_macroevolution.R # Continuous-time Markov models (ARD vs. ER) & transition rates
+│   ├── 02_diet_pcap.R      # Phylogenetic logistic regressions (phylolm) for dietary niches
+│   ├── 03_biomechanics.R   # HWI, body mass, and morphological PCAs
+│   └── 04_oceanography.R   # Marine sub-models, SST, and surface radiation benchmarking
+└── README.md
 
 ---
 
-## 🛠️ Data-Visualization Dashboards
+## 💻 Requirements & Dependencies
 
-### Global Taxonomic Distributions (By Order)
-The script automates frequency filtering to isolate the top ten most abundant non-passerine orders, compressing rarer lineages into a 
-uniform background baseline (`"Other"`) to prevent categorical inflation and preserve spatial context.
+To reproduce the statistical analyses, spatial overlays, and figure generations, you will need **R (v4.0+)**. The script pipeline relies on the following R package libraries:
 
-### Global Ecological Niche Distributions (By Habitat)
-Geospatial projection of thinned coordinates mapped directly onto categorical environmental niches (where numbers $1\text{–}6$ represent 
-distinct forest, grassland, wetland, marine, and generalist matrices). This map visually isolates the distinct clustering of NISC 
-phenotypes along coastal fringes, island chains, and high-latitude Antarctic corridors.
+```r
+# Comparative Methods & Phylogenetics
+library(ape)
+library(geiger)
+library(phytools)
+library(TreeTools)
+library(phangorn)
+library(caper)
+library(phylolm)
+
+# Spatial Data, GIS & Macroecology
+library(sf)
+library(terra)
+library(raster)
+library(sp)
+library(rgeos)
+library(maptools)
+library(maps)
+library(ecospat)
+library(spThin)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(sdmpredictors)
+
+# Data Wrangling, Plotting & Formatting
+library(dplyr)
+library(ggplot2)
+library(plotrix)
+library(knitr)
+```
+
+**Note on Spatial Dependencies:** Spatial operations primarily utilize modern sf and terra frameworks. Legacy spatial dependencies (raster, sp, rgeos, maptools) are retained for backward compatibility with specific spatial matrices or archived data layers.
 
 ---
 
-## 🧰 Dependencies & Setup
-To reproduce the analytical pipelines, ensure the following R environment libraries are initialized:
-```R
-install.packages(c("ecospat", "knitr", "maps", "maptools", "raster", "rgeos", "sp", "spThin", "viridis"))
+## 📜 Citation & License
+This project is licensed under the MIT License for code and CC-BY 4.0 for data matrices. A permanent DOI will be issued via Zenodo upon publication.
