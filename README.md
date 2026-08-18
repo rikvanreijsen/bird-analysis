@@ -19,7 +19,7 @@ This repository contains the dataset matrices, phylogenetic trees, environmental
 
 ## 📁 Repository Structure
 
-.
+```R
 ├── data/
 │   ├── processed/             # DataRAnalysis.csv & AVONET1_BirdLife.csv
 │   └── spatial/               # Bio-ORACLE marine layers (downloaded via sdmpredictors)
@@ -32,6 +32,7 @@ This repository contains the dataset matrices, phylogenetic trees, environmental
 │   ├── 04_geospatial.R        # Bio-ORACLE spatial extractions, raster overlays & range mapping
 │   └── 05_multidimensional.R  # Ecomorphological PCAs, HWI biomechanics & pelagic oceanographic sub-models
 └── README.md
+```
 
 ---
 
